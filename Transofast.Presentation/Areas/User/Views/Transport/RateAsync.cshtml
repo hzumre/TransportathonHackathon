@@ -1,0 +1,121 @@
+﻿
+
+@using Transofast.Presentation.Areas.User.Models.ViewModels.TransportVM;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "RateAsync";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model TransportUpdateVM
+
+<h1>Rate and Comment</h1>
+
+<form id="rateForm">
+    <html>
+    <head>
+        <style>
+            .rating-container {
+                text-align: center;
+            }
+
+            .stars {
+                font-size: 2em;
+                cursor: pointer;
+            }
+
+            .star {
+                display: inline-block;
+                margin: 0.1em;
+            }
+
+                .star.selected {
+                    color: gold;
+                }
+        </style>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const stars = document.querySelectorAll('.star');
+                const commentInput = document.getElementById('comment');
+                const submitBtn = document.getElementById('submitBtn');
+
+                let selectedRating = 1;
+
+                stars.forEach(star => {
+                    star.addEventListener('click', () => {
+                        selectedRating = star.dataset.value;
+                        updateStars(selectedRating);
+                    });
+                });
+
+                function updateStars(value) {
+                    stars.forEach(star => {
+                        if (star.dataset.value <= value) {
+                            star.classList.add('selected');
+                        } else {
+                            star.classList.remove('selected');
+                        }
+                    });
+                }
+
+                submitBtn.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent the default form submission
+
+                    const transportId = '@ViewBag.RelatedTransport';
+
+                    const ratingComment = {
+                        TransportId: transportId,
+                        Rating: selectedRating,
+                        Comment: commentInput.value
+                    };
+
+                    fetch('', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(ratingComment),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle the response data if needed
+                            console.log(data);
+                            if (data.success) {
+                                // Redirect to a different action or view
+                                window.location.href = '/User/Transport/ActiveList';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+
+                updateStars(selectedRating);
+            });
+        </script>
+
+    </head>
+
+    <body>
+        <div class="rating-container">
+            <div class="stars" id="stars">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+
+            <div>
+                <label for="Comment">Comment:</label>
+                <textarea name="Comment" id="comment" rows="4" cols="50" required></textarea>
+            </div>
+
+            <button id="submitBtn">Submit</button>
+        </div>
+
+    </body>
+
+</html>
+</form>
+

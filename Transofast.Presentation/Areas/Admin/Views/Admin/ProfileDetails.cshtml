@@ -1,0 +1,143 @@
+﻿@using Transofast.Presentation.Areas.User.Models.ViewModels.UserVM;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "ProfileDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model UserUpdateVM
+
+@{
+    string companyName = TempData["companyName"] as string;
+}
+
+<html lang="en">
+<style>
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=date], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=email], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=number], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=password], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=submit] {
+        background-color: #04AA6D;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+</style>
+
+<div class="container-xl px-4 mt-4">
+
+
+    <!-- Account details card-->
+
+
+    <form enctype="multipart/form-data" method="post" asp-action="ProfileDetails" asp-controller="Admin">
+
+        <div class="card mb-4 mb-xl-0">
+            <div class="card-header" style="font-size:20px;">Details</div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+                    <label readonly hidden style="font-size:16px;" asp-for=AppUserID class="small mb-1" for="inputCompanyManager">ID:</label>
+                    <input style="background-color: lightgrey;" style="font-size:16px;" readonly hidden asp-for=AppUserID type="text" value="@Model.AppUserID" id="form4Example1">
+                </div>
+
+                <div class="mb-3">
+                    <label style="font-size:16px;" asp-for=UserName class="small mb-1">Name:</label>
+                    <input style="background-color:lightgrey;" style="font-size:16px;" readonly asp-for=UserName id="inputCompanyManager" type="text" value="@Model.UserName">
+                </div>
+
+                <div class="mb-3">
+                    <label style="font-size:16px;" class="small mb-1" for="form4Example1">Email:</label>
+                    <input style="background-color:lightgrey;" style="font-size:16px;" readonly asp-for="Email" id="form4Example1" type="email" />
+                </div>
+
+                <div class="mb-3">
+                    <label style="font-size:16px;" asp-for=@Model.PhoneNumber class="small mb-1" for="inputLocation">Phone Number:</label>
+                    <input style="background-color:lightgrey;" style="font-size:16px;" readonly  asp-for=@Model.PhoneNumber id="inputLocation" type="text">
+
+                </div>
+                <div class="mb-3">
+                    <label style="font-size:16px;" class="small mb-1" for="inputUsername">Company:</label>
+                    <input style="background-color:lightgrey;" style="font-size:16px;" readonly id="inputUsername" type="text" value="@companyName.ToString()">
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+</html>
+
+

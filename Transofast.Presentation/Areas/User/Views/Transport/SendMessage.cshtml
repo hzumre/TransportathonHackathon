@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "SendMessage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Chat with employee</h1>
+
+<html>
+<head>
+    <style>
+        /* Add your existing styles here */
+
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow-y: auto;
+            height: 400px; /* Set a fixed height to limit messages */
+        }
+
+        .message {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 8px;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+
+        .sender-message {
+            background-color: #dcf8c6;
+            align-self: flex-end;
+            text-align: right; /* Align sent messages to the right */
+        }
+
+        .receiver-message {
+            background-color: #ffffff;
+            align-self: flex-start;
+            text-align: left; /* Align received messages to the left */
+        }
+
+        .input-container {
+            display: flex;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .message-input {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .send-button {
+            padding: 8px 20px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+
+    <!-- Include SignalR Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.9/signalr.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/chatHub")
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
+
+            connection.start().catch(err => console.error(err.toString()));
+
+            const userName = '@ViewBag.Sender'; // Get the user name from ViewBag
+            const employeeName = '@ViewBag.Receiver';
+            const senderId = '@ViewBag.UserId';
+            const receiverId = '@ViewBag.ReceiverId';
+
+            document.getElementById("sendButton").addEventListener("click", function (event) {
+                const message = document.getElementById("messageInput").value;
+
+                if (message.trim() === "") {
+                    // Optionally, you can show an alert to the user
+                    alert("Please enter a message.");
+                    return; // Return early and do not send an empty message
+                }
+
+                // Append the sent message to the chat container as a sent message
+                appendMessage("", message, "sender-message");
+
+                // Send the message via SignalR
+                // connection.invoke("Send", message).catch(err => console.error(err.toString()));
+                connection.invoke("SendMessage", receiverId, message).catch(err => console.error(err.toString()));
+
+                // Clear the message input
+                document.getElementById("messageInput").value = "";
+
+                event.preventDefault();
+            });
+
+            connection.on("ReceiveMessage", function (user, message) {
+                if (user === senderId) {
+                    appendMessage(`${employeeName}: `, message, "receiver-message");
+                }
+            });
+
+
+            function appendMessage(user, message, messageClass) {
+                const chatContainer = document.getElementById("chatContainer");
+
+                const messageElement = document.createElement("div");
+                messageElement.className = `message ${messageClass}`;
+                messageElement.textContent = `${user}${message}`;
+
+                chatContainer.appendChild(messageElement);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="chat-container" id="chatContainer">
+@*         <!-- Example messages for testing -->
+        <div class="message sender-message">
+            This is a sent message
+        </div>
+        <div class="message receiver-message">
+            This is a received message
+        </div>
+        <!-- Add more messages dynamically using JavaScript --> *@
+    </div>
+
+    <div class="input-container">
+        <textarea class="message-input" id="messageInput" rows="3" placeholder="Type a message..."></textarea>
+        <button class="send-button" id="sendButton">Send</button>
+    </div>
+</body>
+
+</html>

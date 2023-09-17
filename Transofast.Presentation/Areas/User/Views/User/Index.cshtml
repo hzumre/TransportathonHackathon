@@ -1,0 +1,70 @@
+﻿@using Transofast.Domain.Enum;
+@using Transofast.Presentation.Areas.User.Models.ViewModels.TransportVM;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@model TransportCreateVM
+
+
+
+<section class="book_section">
+    <div class="form_container">
+        <form method="post" asp-area="User" asp-action="Create" asp-controller="Transport">
+            <div class="form-row">
+                <div class="col-lg-8">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="parkingName">From Address</label>
+                            <input type="text" class="form-control" asp-for=@Model.FromAddress placeholder="FromAddress" aria-label="FromAddress">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="parkingNumber">To Address</label>
+                            <input type="text" class="form-control" asp-for="@Model.ToAddress" placeholder="ToAddress" aria-label="ToAddress">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="parkingName">Transport Type</label>
+                            <select class="form-control" asp-for="@Model.TransportType" asp-items="@Html.GetEnumSelectList<TransportType>()">
+                                <option value="">Choose Transport Type..</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="parkingNumber">Company</label>
+                            <select class="form-control" aria-label="Floating label select example" asp-for="@Model.CompanyID">
+                                <option selected value="0">Select Company... </option>
+                                @foreach (var item in Model.CompanyList)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="parkingNumber">Transport Date</label>
+                            <input type="date" class="form-control" asp-for="@Model.TransportDate" placeholder="TransportDate" aria-label="TransportDate">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="parkingNumber">Description</label>
+                            <textarea class="form-control" asp-for="@Model.Description" placeholder="Description" aria-label="Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="btn-container">
+                        <button type="submit" class="">Add Transport Request</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</section>
+

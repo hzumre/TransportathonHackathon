@@ -1,0 +1,424 @@
+﻿
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Rent4u</title>
+
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="~/css/responsive.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg custom_nav-container">
+                    
+                    <div class="navbar-collapse" id="">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            
+                            <modules>
+                                <remove name="FormsAuthenticationModule" />
+                                <remove name="RoleManager" />
+                            </modules>
+                            @if (User.IsInRole("user"))
+                            {
+                                <a class="navbar-brand" asp-area="User" asp-controller="User" asp-action="Index">
+                                    <span>
+                                        SoSo
+                                    </span>
+                                </a>
+                                <div class="user_option">
+                                    <a asp-area="" asp-controller="Login" asp-action="LogOut">
+                                        LogOut
+                                    </a>
+                                </div>
+                                <div class="custom_menu-btn">
+                                    <button onclick="openNav()">
+                                        <span class="s-1"> </span>
+                                        <span class="s-2"> </span>
+                                        <span class="s-3"> </span>
+                                    </button>
+                                </div>
+                                <div id="myNav" class="overlay">
+                                    <div class="overlay-content">
+                                        <a asp-area="User" asp-controller="User" asp-action="ProfileDetails">Profile</a>
+                                        <a asp-area="User" asp-controller="Transport" asp-action="List">Pending Transport</a>
+                                        <a asp-area="User" asp-controller="Transport" asp-action="ActiveList">Active Transport</a>
+                                        <a asp-area="User" asp-controller="Transport" asp-action="DeActiveList">Completed Transport</a>                                      
+                                    </div>
+                                </div>
+
+
+                            }
+                            else if(User.IsInRole("admin"))
+                            {
+                                <a class="navbar-brand" asp-area="Admin" asp-controller="Admin" asp-action="Index">
+                                    <span>
+                                        SoSo
+                                    </span>
+                                </a>
+
+
+                                <div class="user_option">
+                                    <a asp-area="area" asp-controller="Login" asp-action="LogOut">
+                                        LogOut
+                                    </a>
+                                </div>
+                                <div class="custom_menu-btn">
+                                    <button onclick="openNav()">
+                                        <span class="s-1"> </span>
+                                        <span class="s-2"> </span>
+                                        <span class="s-3"> </span>
+                                    </button>
+                                </div>
+                                <div id="myNav" class="overlay">
+                                    <div class="overlay-content">
+                                        <a asp-area="Admin" asp-controller="Admin" asp-action="ProfileDetails">Profile</a>
+                                        <a asp-area="Admin" asp-controller="Employee" asp-action="GetAlEmployees">Employee</a>
+                                        <a asp-area="Admin" asp-controller="Transport" asp-action="List">Pending Transport</a>
+                                        <a asp-area="Admin" asp-controller="Transport" asp-action="ActiveList">Active Transport</a>
+                                        <a asp-area="Admin" asp-controller="Transport" asp-action="DeActiveList"> Completed Transport</a>
+                                        <a href="blog.html">Transport Vehicle</a>
+                                        <a asp-area="Admin" asp-controller="Comment" asp-action="List">Comment</a>
+                                    </div>
+                                </div>
+
+
+                            }
+
+                            else if (User.IsInRole("employee"))
+                            {
+                                <a class="navbar-brand" asp-area="Employee" asp-controller="Employee" asp-action="Index">
+                                    <span>
+                                        SoSo
+                                    </span>
+                                </a>
+
+                                <div class="user_option">
+                                    <a asp-area="area" asp-controller="Login" asp-action="LogOut">
+                                        LogOut
+                                    </a>
+                                </div>
+                                <div class="custom_menu-btn">
+                                    <button onclick="openNav()">
+                                        <span class="s-1"> </span>
+                                        <span class="s-2"> </span>
+                                        <span class="s-3"> </span>
+                                    </button>
+                                </div>
+                                <div id="myNav" class="overlay">
+                                    <div class="overlay-content">
+                                        <a asp-area="Employee" asp-controller="Employee" asp-action="ProfileDetails">Profile</a>
+                                        <a asp-area="Employee" asp-controller="Transport" asp-action="List">Transport</a>
+                                    </div>
+                                </div>
+
+
+                            }
+                            @*else
+                            {
+                                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                                    <span>
+                                        SoSo
+                                    </span>
+                                </a>
+
+                             
+                                <div class="user_option">
+                                    <a asp-area="area" asp-controller="Login" asp-action="SignIn">
+                                        Login
+                                    </a>
+                                </div>
+                                <div class="custom_menu-btn">
+                                    <button onclick="openNav()">
+                                        <span class="s-1"> </span>
+                                        <span class="s-2"> </span>
+                                        <span class="s-3"> </span>
+                                    </button>
+                                </div>
+                                <div id="myNav" class="overlay">
+                                    <div class="overlay-content">
+                                        <a href="/Home/Index">Home</a>
+                                        <a href="about.html">About</a>
+                                        <a href="car.html">Cars</a>
+                                        <a href="blog.html">Blog</a>
+                                        <a href="/Home/Contact">Contact Us</a>
+                                        <a href="#">Login</a>
+                                    </div>
+                                </div>
+
+
+                            }*@
+                        }
+                        else
+                        {
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                                <span>
+                                    SoSo
+                                </span>
+                            </a>
+
+
+                            <div class="user_option">
+                                <a asp-area="area" asp-controller="Login" asp-action="SignIn">
+                                    Login
+                                </a>
+                            </div>
+                            <div class="custom_menu-btn">
+                                <button onclick="openNav()">
+                                    <span class="s-1"> </span>
+                                    <span class="s-2"> </span>
+                                    <span class="s-3"> </span>
+                                </button>
+                            </div>
+                            <div id="myNav" class="overlay">
+                                <div class="overlay-content">
+                                    <a href="/Home/Index">Home</a>
+                                    <a href="/Home/About">About</a>
+                                    <a href="/Home/Contact">Contact Us</a>
+                                    <a asp-area="area" asp-controller="Login" asp-action="SignIn">Login</a>
+                                </div>
+                            </div>
+
+
+                        }
+
+                    </div>
+                </nav>
+            </div>
+
+        </header>
+    </div>
+
+    <!-- end header section -->
+    <!-- slider section -->
+    @if (User.IsInRole("user"))
+    {
+        <section class=" slider_section position-relative">
+            <div class="slider_container">
+                <div class="img-box">
+                    <img src="~/images/2121.jpg" alt="">
+                </div>
+                <div class="detail_container">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="detail-box">
+                                    <h1>
+                                        Moving <br>
+                                        Sooooo <br>
+                                        Easy
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="detail-box">
+                                    <h1>
+                                        Moving <br>
+                                        Sooooo <br>
+                                        Easy
+                                    </h1>
+                                </div>
+                            </div>
+
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    }
+
+    else if (User.IsInRole("admin"))
+    {
+        <section class=" slider_section position-relative">
+            <div class="slider_container">
+                <div class="img-box">
+                    <img src="~/images/2208_w046_n005_283b_p1_283.jpg" alt="">
+                </div>
+                <div class="detail_container">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="detail-box">
+                                    <h1>
+                                        Moving <br>
+                                        Sooooo <br>
+                                        Easy
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="detail-box">
+                                    <h1>
+                                        Moving <br>
+                                        Sooooo <br>
+                                        Easy
+                                    </h1>                                   
+                                </div>
+                            </div>
+
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    }
+
+     else if (User.IsInRole("employee"))
+    {
+        <section class=" slider_section position-relative">
+            <div class="slider_container">
+                <div class="img-box">
+                    <img src="~/images/20945968.jpg" alt="">
+                </div>
+                <div class="detail_container">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                  <div class="detail-box">
+                                    <h1>
+                                        Moving <br>
+                                        Sooooo <br>
+                                        Easy
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="detail-box">
+                                    <h1>
+                                        Moving <br>
+                                        Sooooo <br>
+                                        Easy
+                                    </h1>                                   
+                                </div>
+                            </div>
+
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    }
+    else
+    {
+        <section class=" slider_section position-relative">
+            <div class="slider_container">
+                <div class="img-box">
+                    <img src="~/images/img55@2x.png" alt="">
+                </div>
+                <div class="detail_container">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="detail-box">
+                                    <h1>
+                                        Moving <br>                                       
+                                        Service
+                                    </h1>
+                                    <a href="Admin/Admin/SignUp">
+                                        Serve
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="detail-box">
+                                    <h1>
+                                        Moving <br>
+                                        Service
+                                    </h1>
+                                    <a href="Admin/Admin/SignUp">
+                                        Serve
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    }
+    <!-- end slider section -->
+    @RenderBody()
+
+    <!-- end map section -->
+    <!-- footer section -->
+    <footer class="container-fluid footer_section">
+        <p>
+            Copyright &copy; 2020 All Rights Reserved. Design by
+            <a href="https://html.design/">Free Html Templates</a>
+        </p>
+    </footer>
+    <!-- footer section -->
+
+    <script src="~/js/jquery-3.4.1.min.js"></script>
+    <script src="~/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+    </script>
+    <script src="~/js/custom.js"></script>
+    <script src="~/js/jquery-3.7.0.js"></script>
+    <script src="~/js/jquery.datatables.min.js"></script>
+
+    <script src="~/js/main.js"></script>
+    <script>
+        new DataTable('#example', {
+            order: [[3, 'desc']]
+        });
+    </script>
+
+</body>
+
+</html>

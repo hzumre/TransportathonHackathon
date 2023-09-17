@@ -1,0 +1,82 @@
+﻿@using Transofast.Presentation.Areas.User.Models.ViewModels.TransportVM;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<TransportListVM>
+
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+        <div class="d-flex justify-content-between align-items-center" style="margin-bottom:16px">
+            <a class="btn btn-success" asp-area="User" asp-action="Create" asp-controller="Transport">Add Transport Request</a>
+        </div>
+        <div class="table-responsive">
+            <table id="example" class="table pt-3" >
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th>From Address</th>
+                        <th>To Address</th>
+                        <th>CompanyID</th>
+                        <th>Description</th>
+                        <th>Transport Date</th>
+                        <th>Transport Type</th>
+                        <th>Transport Status</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td scope="row">-</td>
+                            <td>@item.FromAddress</td>
+                            <td>@item.ToAddress</td>
+                            <td>@item.CompanyID</td>
+                            <td>@item.Description</td>
+                            <td>@item.TransportDate</td>
+                            <td>@item.TransportType</td>
+                            <td>@item.TransportStatus</td>                     
+                            <td>@item.Price</td>
+
+                            @if(item.Price!=null)
+                            {
+                            <td>
+                                    <a asp-action="Comfirm" asp-controller="Transport" asp-route-id="@item.ID" type="button" class="btn btn-info">
+                                    Comfirm
+                                </a>                           
+                                    <a asp-action="Reject" asp-controller="Transport" asp-route-id="@item.ID" type="button" class="btn btn-danger">
+                                    Reject
+                                </a>
+                                </td>
+                            }
+                            
+                            else
+                            {
+                                <td>
+                                    <button disabled type="button" class="btn btn-info">
+                                        Comfirm
+                                    </button>
+                                    <button disabled type="button" class="btn btn-danger">
+                                        Reject
+                                    </button>
+                                </td>
+                            }
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

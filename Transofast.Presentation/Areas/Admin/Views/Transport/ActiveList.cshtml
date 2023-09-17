@@ -1,0 +1,76 @@
+﻿@using Transofast.Presentation.Areas.User.Models.ViewModels.TransportVM;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "ActiveList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<TransportListVM>
+
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+
+        <div class="table-responsive">
+            <table id="example" class="table pt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th>From Address</th>
+                        <th>To Address</th>
+                        <th>Description</th>
+                        <th>Transport Date</th>
+                        <th>Transport Type</th>
+                        <th>Transport Price</th>
+                        <th>Employee</th>
+                        <th>Actions</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td scope="row">-</td>
+                            <td>@item.FromAddress</td>
+                            <td>@item.ToAddress</td>
+                            <td>@item.Description</td>
+                            <td typeof="date">@item.TransportDate</td>
+                            <td>@item.TransportType</td>
+                            <td>@item.Price</td>
+                            <td>@item.EmployeeID</td>
+
+                            @if (item.EmployeeID == Guid.Empty || item.EmployeeID == null )
+                            {
+                                <td>
+                                    <a asp-action="AddEmployee" asp-area="Admin" asp-controller="Transport" asp-route-id="@item.ID" type="button" class="btn btn-secondary">
+                                        Add Employe
+                                    </a>
+
+                                </td>
+                            }
+                            else
+                            {
+
+                                <td>
+                                    <button disabled type="button" class="btn btn-secondary">
+                                        Add Employe
+                                    </button>
+
+                                </td>
+                            }
+
+
+                            }
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
