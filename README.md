@@ -8,9 +8,13 @@ I developed the Transofast project using the Onion architecture with Asp.net tec
 
 ![Resim1](https://github.com/hzumre/Transportations/blob/main/Resim2.png)<br><br>
 ![Resim3](https://github.com/hzumre/Transportations/blob/main/Resim3.png)
-![Resim4](https://github.com/hzumre/Transportations/blob/main/Resim4.png)<br>
-![Resim5](https://github.com/hzumre/Transportations/blob/main/Resim5.png)<br>
-![Resim12](https://github.com/hzumre/Transportations/blob/main/Resim12.png)<br>
+![Resim4](https://github.com/hzumre/Transportations/blob/main/Resim4.png)
+
+![Resim5](https://github.com/hzumre/Transportations/blob/main/Resim5.png)
+
+![Resim12](https://github.com/hzumre/Transportations/blob/main/Resim12.png)
+
+
 ![Resim6](https://github.com/hzumre/Transportations/blob/main/Resim6.png)<br>
 ![Resim9](https://github.com/hzumre/Transportations/blob/main/Resim9.png)<br>
 ![Resim10](https://github.com/hzumre/Transportations/blob/main/Resim10.png)<br>
