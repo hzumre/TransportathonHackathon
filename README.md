@@ -1,4 +1,4 @@
-# Transportations
+# TransportathonHackathon
 It is a web application that I developed within one week for the Transportathon Hackathon competition.
 ## What is Transportathon Hackathon?
 It is a competition organized by techcareer.net. The project's scope is to connect people in need of transportation from anywhere in the world with those who perform transportation services.
